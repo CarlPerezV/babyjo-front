@@ -17,34 +17,42 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  const loginUser = ({ email, password }) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const found = users.find(
-      (u) => u.email === email && u.password === password,
-    );
-    if (found) {
+  const loginUser = (email, password) => {
+    try {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const found = users.find((u) => u.email === email);
+      if (!found) {
+        return { success: false, message: "Usuario no encontrado" };
+      }
+
+      if (found.password !== password) {
+        return { success: false, message: "Contraseña incorrecta" };
+      }
+
       localStorage.setItem("currentUser", JSON.stringify(found));
       setUser(found);
       return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          error.message || "Error en el inicio de sesión. Intenta nuevamente.",
+      };
     }
-    return { success: false, message: "Credenciales inválidas" };
   };
 
-  const registerUser = ({ firstName, lastName, email, password }) => {
+  const registerUser = async ({ firstName, lastName, email, password }) => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const exists = users.some((u) => u.email === email);
     if (exists) {
-      return { success: false, message: "Usuario ya registrado" };
+      throw new Error("Usuario ya registrado");
     }
     const newUser = { id: Date.now(), firstName, lastName, email, password };
-    const addUsers = [...users, newUser];
-
-    localStorage.setItem("users", JSON.stringify(addUsers));
+    localStorage.setItem("users", JSON.stringify([...users, newUser]));
     localStorage.setItem("currentUser", JSON.stringify(newUser));
-
     setUser(newUser);
 
-    return { success: true };
+    return newUser;
   };
 
   const logout = () => {

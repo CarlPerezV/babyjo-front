@@ -3,10 +3,6 @@ import { useAuth } from "../context/AuthContext";
 export default function Profile() {
   const { user, logout } = useAuth();
 
-  if (!user) {
-    return <p className="mt-10 text-center">No hay usuario autenticado.</p>;
-  }
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
       <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">

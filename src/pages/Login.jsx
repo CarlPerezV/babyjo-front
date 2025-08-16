@@ -19,11 +19,18 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = (data) => {
-    const result = loginUser(data.email, data.password);
-    if (result.success) {
-      navigate("/profile");
-    } else {
-      setErrorMessage(result.message || "Usuario o contraseña incorrectos");
+    try {
+      setErrorMessage("");
+
+      const result = loginUser(data.email, data.password);
+
+      if (result.success) {
+        navigate("/profile");
+      } else {
+        setErrorMessage(result.message || "Usuario o contraseña incorrectos");
+      }
+    } catch (error) {
+      setErrorMessage("Error al iniciar sesión", error);
     }
   };
   const {

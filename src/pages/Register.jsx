@@ -4,11 +4,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const schema = yup.object().shape({
   firstName: yup.string().required("Nombre obligatorio"),
   lastName: yup.string().required("Apellido obligatorio"),
-  email: yup.string().email("Email inválido").required("Email obligatorio"),
+  email: yup
+    .string()
+    .email("Email inválido")
+    .required("Email obligatorio")
+    .test("unique-email", "Este email ya está registrado", async (value) => {
+      if (!value) return true;
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      return !users.some((u) => u.email === value);
+    }),
   password: yup
     .string()
     .min(6, "Mínimo 6 caracteres")
@@ -20,22 +29,52 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
-  const { registerUser } = useAuth();
+  const { registerUser, user } = useAuth();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    const { ...userData } = data;
-    registerUser(userData);
-    navigate("/profile");
+  // Redirige si el usuario ya está autenticado
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    }
+  }, [user, navigate]);
+
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      setErrorMessage("");
+      const { confirmPassword, ...userData } = data;
+      await registerUser(userData);
+      navigate("/profile");
+    } catch (error) {
+      if (error.message === "Este email ya está registrado") {
+        // Usamos setError de react-hook-form para marcar el campo email
+        setError("email", {
+          type: "manual",
+          message: error.message,
+        });
+      } else {
+        setErrorMessage(
+          error.message || "Error en el registro. Intenta nuevamente.",
+        );
+      }
+    }
   };
+
+  // Si hay un usuario, no renderices el formulario (será redirigido por el useEffect)
+  if (user) {
+    return null;
+  }
 
   return (
     <main className="flex h-screen items-center justify-center overflow-hidden bg-fuchsia-100">
@@ -167,8 +206,12 @@ const Register = () => {
                   </p>
                 </div>
               </div>
-              {/* button */}
             </div>
+            {errorMessage && (
+              <p className="flex justify-center text-sm font-bold text-red-600">
+                {errorMessage}
+              </p>
+            )}
           </div>
           <div>
             <button
