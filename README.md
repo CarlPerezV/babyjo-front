@@ -52,4 +52,4 @@
 
 ## Demo
 
-https://babyjo-front.netlify.app/shop
+https://babyjo-front-base.netlify.app/
