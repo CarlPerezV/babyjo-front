@@ -6,10 +6,6 @@
 
 - [Estado Actual](#estado-actual)
 - [Dependencias](#dependencias)
-- [Instalación](#instalación)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Próximos Pasos](#próximos-pasos)
-- [Cómo Contribuir](#cómo-contribuir)
 - [Demo](#demo)
 
 ## Estado Actual
@@ -53,3 +49,7 @@
 - react-hook-form
 - yup
 - tailwindcss
+
+## Demo
+
+https://babyjo-front.netlify.app/shop
