@@ -1,81 +1,87 @@
 import { Link } from "react-router-dom";
+import useStarRating from "../hook/useStarRating ";
+import { useCart } from "../context/CartContext";
+import { useState } from "react";
 
-const Card = () => {
+const Card = ({ product }) => {
+  const [showSizeError, setShowSizeError] = useState(false);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const { addToCart } = useCart();
+  // Hook para mostrar estrellas según rating
+  const stars = useStarRating(product.rating);
+  const availableSizes = product.sizes;
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      setShowSizeError(true);
+      return;
+    }
+    addToCart(product, selectedSize);
+    setShowSizeError(false);
+    setSelectedSize(null);
+  };
+
   return (
-    <div className="w-full rounded-lg border border-gray-600 bg-fuchsia-200 p-4 shadow-sm">
-      <Link to="#">
+    <div className="w-full rounded-2xl border-2 border-purple-600 bg-fuchsia-200 p-4 shadow-sm">
+      <Link
+        className="block h-56 overflow-hidden rounded-2xl"
+        to={`/shop/${product.id}`}
+      >
         <img
-          className="overflow-hidden rounded-2xl"
-          src="/producto001.PNG"
-          alt="product image"
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+          src={product.image}
+          alt={product.name}
         />
       </Link>
-      <div className="px-5 pb-5">
-        <a href="#">
-          <h5 className="text-xl font-semibold tracking-tight text-purple-700">
-            Nombre del producto
+      <div className="flex flex-1 flex-col px-3 pt-4 pb-3">
+        <Link to={`/shop/${product.id}`}>
+          <h5 className="line-clamp-2 text-lg font-semibold tracking-tight text-purple-700">
+            {product.name}
           </h5>
-        </a>
-        <div className="mt-2.5 mb-5 flex items-center">
-          <div className="flex items-center space-x-1 rtl:space-x-reverse">
-            <svg
-              className="h-4 w-4 text-yellow-300"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 22 20"
-            >
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-            <svg
-              className="h-4 w-4 text-yellow-300"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 22 20"
-            >
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-            <svg
-              className="h-4 w-4 text-yellow-300"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 22 20"
-            >
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-            <svg
-              className="h-4 w-4 text-yellow-300"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 22 20"
-            >
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
-            <svg
-              className="h-4 w-4 text-purple-700"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 22 20"
-            >
-              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-            </svg>
+        </Link>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            {stars}
           </div>
-          <span className="ms-3 rounded-sm bg-blue-100 px-2.5 py-0.5 text-xs font-bold text-purple-500 dark:bg-blue-200">
-            5.0
+          <span className="ms-3 rounded-sm bg-pink-300 px-2.5 py-0.5 font-bold text-purple-500">
+            {product.rating}
           </span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-3xl font-bold text-purple-700">$599</span>
-          <a
-            href="#"
-            className="rounded-lg bg-purple-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-purple-400 focus:ring-4 focus:ring-blue-300 focus:outline-none"
-          >
-            Add to cart
-          </a>
+
+        <div className="my-2 flex flex-wrap justify-center gap-1">
+          {availableSizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => setSelectedSize(size)}
+              className={`h-7 w-7 rounded-md border-2 text-xs transition-colors hover:bg-purple-400 ${
+                selectedSize === size
+                  ? "border-purple-700 bg-purple-200 font-bold"
+                  : "border-fuchsia-300 bg-pink-200"
+              } text-sm`}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+        {showSizeError && (
+          <p className="mb-2 animate-pulse text-xs font-bold text-fuchsia-600">
+            ⚠️ Debes seleccionar una talla ⚠️
+          </p>
+        )}
+
+        <div className="flex items-center justify-around align-middle">
+          <span className="text-xl font-bold text-purple-700">
+            ${product.price}
+          </span>
+          <div className="mt-auto pt-2">
+            <button
+              onClick={handleAddToCart}
+              className="w-full rounded-lg bg-purple-700 px-3 py-2 text-sm font-medium text-white hover:bg-purple-400 focus:ring-4 focus:ring-blue-300 focus:outline-none"
+            >
+              Agregar
+            </button>
+          </div>
         </div>
       </div>
     </div>

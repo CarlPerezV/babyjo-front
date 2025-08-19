@@ -53,7 +53,7 @@ const Register = () => {
     try {
       console.log(data);
       setErrorMessage("");
-      const { confirmPassword, ...userData } = data;
+      const { ...userData } = data;
       await registerUser(userData);
       navigate("/profile");
     } catch (error) {
@@ -77,7 +77,7 @@ const Register = () => {
   }
 
   return (
-    <main className="flex h-screen items-center justify-center overflow-hidden bg-fuchsia-100">
+    <main className="flex h-screen items-center justify-center overflow-hidden bg-fuchsia-100 text-center">
       {/* imagen */}
       <div className="order-2 flex items-center justify-center p-8 md:w-1/3">
         <div className="mx-auto w-full max-w-xs">
@@ -98,15 +98,13 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <div className="order-1 m-5 space-y-6 md:w-1/3">
+      <div className="order-1 m-5 flex flex-col justify-center space-y-6 md:w-1/3">
         <div className="w-auto sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="text-center text-2xl font-bold text-purple-900">
-            Registrarse
-          </h2>
+          <h2 className="text-2xl font-bold text-purple-900">Registrarse</h2>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-md space-y-6 rounded-4xl bg-fuchsia-200 p-4 shadow-sm"
+          className="m-auto w-full max-w-md space-y-6 rounded-4xl bg-fuchsia-200 p-4 shadow-sm"
         >
           <div className="gap-y-4 rounded-xl">
             <div>

@@ -1,6 +1,18 @@
+import { Products } from "../data/Products";
 import Card from "../components/Card";
+import { useState } from "react";
 
 const Shop = () => {
+  const [selectedSizes, setSelectedSizes] = useState({});
+
+  // Función para actualizar la talla seleccionada
+  const handleSizeSelect = (productId, size) => {
+    setSelectedSizes((prev) => ({
+      ...prev,
+      [productId]: size,
+    }));
+  };
+
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
@@ -30,32 +42,19 @@ const Shop = () => {
             type="text"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-purple-700 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Search products..."
-            // value={searchTerm}
-            // onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
-      <div className="m-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+      <div className="m-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5">
+        {Products.map((product) => (
+          <Card
+            key={product.id}
+            product={product}
+            selectedSize={selectedSizes[product.id] || null}
+            onSizeSelect={(size) => handleSizeSelect(product.id, size)}
+          />
+        ))}
       </div>
-      {/* {filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400">No products found matching your search.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map(product => (
-              <Card key={product.id} product={product} />
-            ))}
-          </div>
-        )} */}
     </main>
   );
 };

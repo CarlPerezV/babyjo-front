@@ -44,7 +44,7 @@ const Login = () => {
   return (
     <div className="flex h-screen items-center justify-center overflow-hidden bg-fuchsia-100 md:flex-row">
       {/* image */}
-      <div className="order-2 flex items-center justify-center p-8 md:w-1/3">
+      <div className="order-2 flex flex-col justify-center p-8 text-center md:w-1/3">
         <div className="mx-auto w-full max-w-xs">
           <img
             className="h-auto w-full hover:scale-105"

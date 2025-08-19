@@ -17,99 +17,117 @@ const Navbar = () => {
 
   return (
     <nav className="border-gray-200 bg-fuchsia-200">
-      <div className="flex w-full flex-wrap items-center justify-between p-4">
-        <Link
-          to={"/"}
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between px-4 py-2">
+        <Link to={"/home"} className="flex items-center">
+          <span className="font-serif text-2xl font-semibold text-purple-500 md:text-3xl">
             BabyJo
           </span>
         </Link>
-        <div className="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-          <button
-            onClick={toggleUserDropdown}
-            type="button"
-            className="flex rounded-full text-sm focus:ring-4 focus:ring-pink-300 md:me-0"
-            id="user-menu-button"
-            aria-expanded={isUserDropdownOpen}
-            data-dropdown-placement="bottom"
-          >
-            <span className="sr-only">Open user menu</span>
-            <img
-              className="h-20 rounded-full"
-              src="/logo.png"
-              alt="user photo"
-            />
-          </button>
-          {/* <!-- Dropdown menu --> */}
 
-          <div
-            className={` ${isUserDropdownOpen ? "absolute" : "hidden"} top-24 right-5 z-50 my-4 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow-sm dark:divide-gray-600 dark:bg-fuchsia-400`}
-            id="user-dropdown"
+        <div className="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+          <Link
+            to="/cart"
+            className="relative mr-4 text-purple-700 hover:text-pink-500"
           >
-            {user && (
-              <div className="px-4 py-3">
-                <span className="block text-sm font-bold text-purple-900">
-                  {user.firstName} {user.lastName}
-                </span>
-                <span className="block truncate text-sm font-bold text-purple-900">
-                  {user.email}
-                </span>
-              </div>
-            )}
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              {!user && (
-                <>
-                  <li>
-                    <Link
-                      to={"/login"}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-pink-500 dark:hover:text-white"
-                    >
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to={"/register"}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-pink-500 dark:hover:text-white"
-                    >
-                      Registro
-                    </Link>
-                  </li>
-                </>
-              )}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </Link>
+          <div className="relative">
+            <button
+              onClick={toggleUserDropdown}
+              type="button"
+              className="flex rounded-full text-sm focus:ring-4 focus:ring-pink-300 md:me-0"
+              id="user-menu-button"
+              aria-expanded={isUserDropdownOpen}
+              data-dropdown-placement="bottom"
+            >
+              <span className="sr-only">Open user menu</span>
+              <img
+                className="h-15 rounded-full"
+                src="/logo.png"
+                alt="user photo"
+              />
+            </button>
+
+            <div
+              className={` ${isUserDropdownOpen ? "absolute" : "hidden"} ring-opacity-5 right-0 z-50 mt-1 w-48 origin-top-right rounded-md bg-fuchsia-400 shadow-lg ring-1 ring-black focus:outline-none`}
+            >
               {user && (
-                <>
-                  <li>
-                    <Link
-                      to={"/profile"}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-pink-500 dark:hover:text-white"
-                    >
-                      Perfil
-                    </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-pink-500 dark:hover:text-white"
-                    >
-                      Compras
-                    </a>
-                  </li>
-                  <li>
-                    <Link
-                      onClick={logout}
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-pink-500 dark:hover:text-white"
-                    >
-                      Cerrar sesión
-                    </Link>
-                  </li>
-                </>
+                <div className="px-4 py-3">
+                  <span className="block text-sm font-bold text-purple-900">
+                    {user.firstName} {user.lastName}
+                  </span>
+                  <span className="block truncate text-sm font-bold text-purple-900">
+                    {user.email}
+                  </span>
+                </div>
               )}
-            </ul>
+              <ul className="py-2" aria-labelledby="user-menu-button">
+                {!user && (
+                  <>
+                    <li>
+                      <Link
+                        to={"/login"}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={"/register"}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Registro
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {user && (
+                  <>
+                    <li>
+                      <Link
+                        to={"/profile"}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Perfil
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={"/construction"}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Compras
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        onClick={logout}
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Cerrar sesión
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </div>
           </div>
+          {/* <!-- Dropdown menu --> */}
 
           {/* <!-- Dropdown menu end --> */}
           <button
@@ -138,11 +156,12 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+
         <div
           className={`w-full items-center ${isMobileMenuOpen ? "block" : "hidden"} justify-between md:order-1 md:flex md:w-auto`}
           id="navbar-user"
         >
-          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 p-4 text-3xl font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
+          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 p-4 font-serif text-3xl font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
             <li>
               <Link
                 to={"/"}
@@ -156,7 +175,7 @@ const Navbar = () => {
               <Link
                 to={"/shop"}
                 href="#"
-                className="block rounded-sm px-3 py-2 text-gray-900 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+                className="block rounded-sm px-3 py-2 text-purple-600 md:bg-transparent md:p-0 md:hover:text-pink-400 md:dark:hover:bg-transparent"
               >
                 Tienda
               </Link>
