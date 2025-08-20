@@ -20,7 +20,7 @@ export default function AppRoutes() {
     <>
       <Navbar />
       <Routes>
-        <Route index element={<Home />} />
+        <Route index path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />

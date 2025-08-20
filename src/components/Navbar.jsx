@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <nav className="border-gray-200 bg-fuchsia-200">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between px-4 py-2">
-        <Link to={"/home"} className="flex items-center">
+        <Link to={"/"} className="flex items-center">
           <span className="font-serif text-2xl font-semibold text-purple-500 md:text-3xl">
             BabyJo
           </span>
