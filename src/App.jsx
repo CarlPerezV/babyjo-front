@@ -1,15 +1,17 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <>
       <div>
-        <Navbar />
-        <div>
-          <AppRoutes />
-        </div>
+        {/* <Navbar /> */}
+        <main role="main" className="min-h-screen">
+          <div className="mx-auto">
+            <AppRoutes />
+          </div>
+        </main>
+        {/* <Footer /> */}
       </div>
     </>
   );

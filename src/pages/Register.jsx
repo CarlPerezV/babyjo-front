@@ -70,8 +70,6 @@ const Register = () => {
       }
     }
   };
-
-  // Si hay un usuario, no renderices el formulario (será redirigido por el useEffect)
   if (user) {
     return null;
   }

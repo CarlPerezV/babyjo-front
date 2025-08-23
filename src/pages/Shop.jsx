@@ -1,9 +1,32 @@
 import { Products } from "../data/Products";
 import Card from "../components/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { listProducts } from "../services/product.service";
+
+const mapProductFromApi = (p) => ({
+  id: p.id,
+  name: p.name,
+  description: p.description,
+  price: Number(p.price),
+  // tu backend devuelve image_url; el Card usa "image"
+  image:
+    typeof p.image_url === "string" && p.image_url.startsWith("http")
+      ? p.image_url
+      : `/${p.image_url || "placeholder.png"}`,
+  // tu backend devuelve sizes como [{size, stock}]
+  // el Card espera un array de tallas (strings) -> filtramos por stock > 0
+  sizes: Array.isArray(p.sizes)
+    ? p.sizes.filter((s) => (s?.stock ?? 0) > 0).map((s) => String(s.size))
+    : [],
+  // por si en el futuro devuelves rating desde el back:
+  rating: p.rating ?? undefined,
+});
 
 const Shop = () => {
   const [selectedSizes, setSelectedSizes] = useState({});
+  const [products, setProducts] = useState([]);
+  const [status, setStatus] = useState({ loading: true, error: "" });
+  const [search, setSearch] = useState("");
 
   // Función para actualizar la talla seleccionada
   const handleSizeSelect = (productId, size) => {
@@ -12,6 +35,34 @@ const Shop = () => {
       [productId]: size,
     }));
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setStatus({ loading: true, error: "" });
+        const { products } = await listProducts({ limit: 50, offset: 0 });
+        setProducts(products.map(mapProductFromApi));
+        setStatus({ loading: false, error: "" });
+      } catch (e) {
+        setStatus({
+          loading: false,
+          error: e.message || "Error cargando productos",
+        });
+      }
+    })();
+  }, []);
+
+  const displayed = products.filter((p) =>
+    p.name.toLowerCase().includes(search.trim().toLowerCase()),
+  );
+
+  if (status.loading) {
+    return (
+      <main className="grid min-h-[60vh] place-items-center bg-fuchsia-50">
+        <div className="animate-pulse text-purple-700">Cargando productos…</div>
+      </main>
+    );
+  }
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -42,11 +93,13 @@ const Shop = () => {
             type="text"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-purple-700 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
       <div className="m-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5">
-        {Products.map((product) => (
+        {displayed.map((product) => (
           <Card
             key={product.id}
             product={product}
@@ -55,6 +108,11 @@ const Shop = () => {
           />
         ))}
       </div>
+      {displayed.length === 0 && (
+        <p className="mt-6 text-center text-purple-700">
+          No encontramos productos que coincidan con tu búsqueda.
+        </p>
+      )}
     </main>
   );
 };

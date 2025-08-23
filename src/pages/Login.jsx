@@ -18,11 +18,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    console.log(data);
     try {
       setErrorMessage("");
 
-      const result = loginUser(data.email, data.password);
+      const result = await loginUser(data.email, data.password);
 
       if (result.success) {
         navigate("/profile");

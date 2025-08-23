@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useStarRating from "../hook/useStarRating ";
+import useStarRating from "../hook/useStarRating";
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 

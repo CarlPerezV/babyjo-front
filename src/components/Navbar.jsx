@@ -50,7 +50,7 @@ const Navbar = () => {
               type="button"
               className="flex rounded-full text-sm focus:ring-4 focus:ring-pink-300 md:me-0"
               id="user-menu-button"
-              aria-expanded={isUserDropdownOpen}
+              aria-expanded={() => isUserDropdownOpen}
               data-dropdown-placement="bottom"
             >
               <span className="sr-only">Open user menu</span>

@@ -11,7 +11,6 @@ import NotFound from "../pages/NotFound";
 import Construction from "../pages/Construction";
 
 import { PrivateRoute } from "../context/AuthContext";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -20,7 +19,7 @@ export default function AppRoutes() {
     <>
       <Navbar />
       <Routes>
-        <Route index path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
@@ -35,7 +34,6 @@ export default function AppRoutes() {
             </PrivateRoute>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
