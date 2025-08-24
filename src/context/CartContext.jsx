@@ -1,13 +1,23 @@
+import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 
 // crea contexto
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("cart")) || [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product, size) => {
-    console.log(product.id, size);
     setCart((prevCart) => {
       // Buscar si ya existe esta combinación exacta
       const existingItemIndex = prevCart.findIndex(

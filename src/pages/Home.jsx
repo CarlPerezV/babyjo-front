@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -31,9 +31,12 @@ const Home = () => {
                   inspira grandes aventuras. Cada diseño cuenta una historia y
                   cada paso es una oportunidad para brillar.
                 </p>
-                <button className="transform rounded-full bg-pink-500 px-6 py-3 text-white shadow-lg transition hover:scale-105 hover:bg-pink-600 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:outline-none">
+                <Link
+                  to="/shop"
+                  className="transform rounded-full bg-pink-500 px-6 py-3 text-white shadow-lg transition hover:scale-105 hover:bg-pink-600 focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 focus:outline-none"
+                >
                   Descubre la Colección
-                </button>
+                </Link>
               </div>
             </div>
           </div>

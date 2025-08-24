@@ -1,4 +1,4 @@
-import { Products } from "../data/Products";
+// import { Products } from "../data/Products";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { listProducts } from "../services/product.service";

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 
@@ -18,15 +18,16 @@ const Login = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
+  const location = useLocation();
+
   const onSubmit = async (data) => {
     console.log(data);
     try {
       setErrorMessage("");
-
       const result = await loginUser(data.email, data.password);
-
       if (result.success) {
-        navigate("/profile");
+        const redirectTo = location.state?.from || "/profile";
+        navigate(redirectTo, { replace: true });
       } else {
         setErrorMessage(result.message || "Usuario o contraseña incorrectos");
       }
