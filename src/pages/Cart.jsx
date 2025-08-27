@@ -26,12 +26,6 @@ const Cart = () => {
 
   const fmt = (n) => Number(n || 0).toLocaleString("es-CL");
 
-  const clientTotal = cart.reduce(
-    (acc, it) =>
-      acc + Number(it.product?.price || 0) * Number(it.quantity || 0),
-    0,
-  );
-
   const handlePay = async () => {
     const token = sessionStorage.getItem("token");
     if (!user && !token) {

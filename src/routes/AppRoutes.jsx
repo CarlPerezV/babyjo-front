@@ -6,11 +6,12 @@ import Shop from "../pages/Shop";
 import ProductDetail from "../pages/ProductDetail";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import Construction from "../pages/Construction";
 
 import { PrivateRoute } from "../context/AuthContext";
+import Profile from "../pages/Profile";
+import MyOrders from "../pages/MyOrders";
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,14 @@ export default function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/construction" element={<Construction />} />
         <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <MyOrders />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/profile"
           element={
             <PrivateRoute>
@@ -31,6 +40,7 @@ export default function AppRoutes() {
             </PrivateRoute>
           }
         />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
