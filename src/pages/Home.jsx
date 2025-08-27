@@ -18,7 +18,6 @@ const Home = () => {
                 />
               </div>
 
-              {/* Frase inspiradora */}
               <div className="relative z-10 max-w-md rounded-lg bg-white p-8 shadow-xl">
                 <h1 className="mb-4 font-serif text-3xl font-light text-gray-800 md:text-4xl">
                   Pequeños{" "}
@@ -44,10 +43,10 @@ const Home = () => {
           {/* Imagen de producto */}
           <div className="flex justify-center md:w-1/2">
             <div className="relative">
-              <div className="absolute -top-10 -left-10 z-0 h-80 w-80 rounded-full bg-pink-100 opacity-80"></div>
-              <div className="absolute -right-10 -bottom-10 z-0 h-80 w-80 rounded-full bg-pink-200 opacity-80"></div>
+              <div className="absolute -top-10 -left-10 z-0 h-80 w-80 rounded-full bg-pink-300 opacity-80"></div>
+              <div className="absolute -right-10 -bottom-10 z-0 h-80 w-80 rounded-full bg-pink-300 opacity-80"></div>
               <div className="relative z-10">
-                <div className="flex h-96 w-96 items-center justify-center rounded-3xl bg-white shadow-xl">
+                <div className="flex h-96 w-96 items-center justify-center rounded-3xl bg-white shadow-2xl">
                   <img
                     className="w-full rounded-3xl object-cover"
                     src="/product_001.PNG"

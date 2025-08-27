@@ -11,6 +11,8 @@ const Card = ({ product }) => {
   const stars = useStarRating(product.rating);
   const availableSizes = product.sizes;
 
+  const fmt = (n) => Number(n || 0).toLocaleString("es-CL");
+
   const handleAddToCart = () => {
     if (!selectedSize) {
       setShowSizeError(true);
@@ -22,9 +24,9 @@ const Card = ({ product }) => {
   };
 
   return (
-    <div className="w-full rounded-2xl border-2 border-purple-600 bg-fuchsia-200 p-4 shadow-sm">
+    <div className="h-full w-full rounded-2xl border-2 border-purple-600 bg-fuchsia-200 shadow-sm">
       <Link
-        className="block h-56 overflow-hidden rounded-2xl"
+        className="block h-56 overflow-hidden rounded-t-2xl min-[1500px]:h-52"
         to={`/shop/${product.id}`}
       >
         <img
@@ -33,9 +35,9 @@ const Card = ({ product }) => {
           alt={product.name}
         />
       </Link>
-      <div className="flex flex-1 flex-col px-3 pt-4 pb-3">
+      <div className="flex h-[calc(100%-13rem)] flex-col p-4 min-[1500px]:h-[calc(100%-12rem)]">
         <Link to={`/shop/${product.id}`}>
-          <h5 className="line-clamp-2 text-lg font-semibold tracking-tight text-purple-700">
+          <h5 className="line-clamp-2 text-base leading-snug font-semibold text-purple-800">
             {product.name}
           </h5>
         </Link>
@@ -44,12 +46,12 @@ const Card = ({ product }) => {
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             {stars}
           </div>
-          <span className="ms-3 rounded-sm bg-pink-300 px-2.5 py-0.5 font-bold text-purple-500">
+          <span className="ms-3 rounded-sm bg-pink-300 px-1.5 py-0.5 font-bold text-purple-500">
             {product.rating}
           </span>
         </div>
 
-        <div className="my-2 flex flex-wrap justify-center gap-1">
+        <div className="my-2 flex flex-wrap gap-2">
           {availableSizes.map((size) => (
             <button
               key={size}
@@ -72,9 +74,9 @@ const Card = ({ product }) => {
 
         <div className="flex items-center justify-around align-middle">
           <span className="text-xl font-bold text-purple-700">
-            ${product.price}
+            ${fmt(product.price)}
           </span>
-          <div className="mt-auto pt-2">
+          <div className="mt-auto">
             <button
               onClick={handleAddToCart}
               className="w-full rounded-lg bg-purple-700 px-3 py-2 text-sm font-medium text-white hover:bg-purple-400 focus:ring-4 focus:ring-blue-300 focus:outline-none"

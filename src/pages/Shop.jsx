@@ -8,7 +8,7 @@ const mapProductFromApi = (p) => ({
   name: p.name,
   description: p.description,
   price: Number(p.price),
-  // tu backend devuelve image_url; el Card usa "image"
+  // devuelve image_url
   image:
     typeof p.image_url === "string" && p.image_url.startsWith("http")
       ? p.image_url
@@ -98,7 +98,7 @@ const Shop = () => {
           />
         </div>
       </div>
-      <div className="m-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-3 sm:m-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:m-5 2xl:grid-cols-5">
         {displayed.map((product) => (
           <Card
             key={product.id}

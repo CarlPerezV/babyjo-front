@@ -11,13 +11,10 @@ import NotFound from "../pages/NotFound";
 import Construction from "../pages/Construction";
 
 import { PrivateRoute } from "../context/AuthContext";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export default function AppRoutes() {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
@@ -36,7 +33,6 @@ export default function AppRoutes() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </>
   );
 }
