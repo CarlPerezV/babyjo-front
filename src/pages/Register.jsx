@@ -75,149 +75,189 @@ const Register = () => {
   }
 
   return (
-    <main className="flex h-screen items-center justify-center overflow-hidden bg-fuchsia-100 text-center">
-      {/* imagen */}
-      <div className="order-2 flex items-center justify-center p-8 md:w-1/3">
-        <div className="mx-auto w-full max-w-xs">
-          <img
-            className="h-auto w-full hover:scale-105"
-            src="/logo.png"
-            alt="Logo"
-          />
-          <div>
-            <p>
+    <main className="min-h-[100svh] bg-fuchsia-100">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-4 py-10 md:grid-cols-2 md:py-16">
+        {/* Logo compacto en mobile */}
+        <div className="md:hidden">
+          <div className="mb-6 flex items-center justify-center">
+            <img
+              className="w-40 select-none"
+              src="/logo.png"
+              alt="BabyJo"
+              loading="eager"
+            />
+          </div>
+        </div>
+
+        {/* Panel visual (logo grande) solo en desktop */}
+        <div className="hidden md:flex md:justify-center md:p-8">
+          <div className="w-full max-w-xs text-center">
+            <img
+              className="h-auto w-full transition-transform duration-300 select-none hover:scale-105"
+              src="/logo.png"
+              alt="Logo"
+              loading="eager"
+            />
+            <p className="mt-6">
               <Link
                 to="/login"
-                className="scale-50 text-purple-900 hover:font-semibold hover:text-purple-500 hover:underline"
+                className="text-purple-900 underline-offset-4 hover:font-semibold hover:text-purple-600 hover:underline"
               >
                 ¿Ya tienes una cuenta?
               </Link>
             </p>
           </div>
         </div>
-      </div>
-      <div className="order-1 m-5 flex flex-col justify-center space-y-6 md:w-1/3">
-        <div className="w-auto sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="text-2xl font-bold text-purple-900">Registrarse</h2>
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="m-auto w-full max-w-md space-y-6 rounded-4xl bg-fuchsia-200 p-4 shadow-sm"
-        >
-          <div className="gap-y-4 rounded-xl">
-            <div>
-              <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+        {/* Tarjeta del formulario */}
+        <div className="flex w-full justify-center">
+          <div className="w-full max-w-md rounded-3xl bg-fuchsia-200 p-5 shadow-sm sm:p-6">
+            <h2 className="mb-5 text-center text-2xl font-bold text-purple-900">
+              Registrarse
+            </h2>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              {/* Nombre y Apellido */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label
                     htmlFor="firstName"
-                    className="block font-medium text-purple-700"
+                    className="mb-1 block pl-1 text-sm font-medium text-purple-700"
                   >
                     Nombre
                   </label>
-                  <div>
-                    <input
-                      type="text"
-                      {...register("firstName")}
-                      className="mt-1 block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-2 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 focus:outline-none"
-                    />
-                    <p className="flex justify-center text-sm font-bold text-violet-600">
-                      {errors.firstName?.message}
+                  <input
+                    id="firstName"
+                    type="text"
+                    autoComplete="given-name"
+                    {...register("firstName")}
+                    className="block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-3 shadow-sm transition outline-none focus:border-fuchsia-500"
+                  />
+                  {errors.firstName?.message && (
+                    <p className="mt-1 text-center text-sm font-semibold text-violet-700">
+                      {errors.firstName.message}
                     </p>
-                  </div>
+                  )}
                 </div>
+
                 <div>
                   <label
                     htmlFor="lastName"
-                    className="block font-medium text-purple-700"
+                    className="mb-1 block pl-1 text-sm font-medium text-purple-700"
                   >
                     Apellido
                   </label>
-                  <div>
-                    <input
-                      type="text"
-                      {...register("lastName")}
-                      className="mt-1 block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-2 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 focus:outline-none"
-                    />
-                    <p className="flex justify-center text-sm font-bold text-violet-600">
-                      {errors.lastName?.message}
+                  <input
+                    id="lastName"
+                    type="text"
+                    autoComplete="family-name"
+                    {...register("lastName")}
+                    className="block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-3 shadow-sm transition outline-none focus:border-fuchsia-500"
+                  />
+                  {errors.lastName?.message && (
+                    <p className="mt-1 text-center text-sm font-semibold text-violet-700">
+                      {errors.lastName.message}
                     </p>
-                  </div>
+                  )}
                 </div>
               </div>
-              {/* email */}
+
+              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
-                  className="block font-medium text-purple-700"
+                  className="mb-1 block pl-1 text-sm font-medium text-purple-700"
                 >
                   Email
                 </label>
-                <div>
-                  <input
-                    {...register("email")}
-                    type="email"
-                    className="mt-1 block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-2 shadow-sm focus:border-fuchsia-500 focus:ring-fuchsia-500 focus:outline-none"
-                  />
-                  <p className="flex justify-center text-sm font-bold text-violet-600">
-                    {errors.email?.message}
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="tu@email.com"
+                  autoComplete="email"
+                  {...register("email")}
+                  className="block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-3 shadow-sm transition outline-none focus:border-fuchsia-500"
+                />
+                {errors.email?.message && (
+                  <p className="mt-1 text-center text-sm font-semibold text-violet-700">
+                    {errors.email.message}
                   </p>
-                </div>
+                )}
               </div>
-              {/* pass */}
+
+              {/* Password */}
               <div>
                 <label
                   htmlFor="password"
-                  className="block font-medium text-purple-700"
+                  className="mb-1 block pl-1 text-sm font-medium text-purple-700"
                 >
-                  Password
+                  Contraseña
                 </label>
-                <div className="mt-1">
-                  <input
-                    type="password"
-                    placeholder="Contraseña"
-                    {...register("password")}
-                    className="mt-1 block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-2 shadow-sm focus:border-fuchsia-500 focus:outline-none"
-                  />
-                  <p className="flex justify-center text-sm font-bold text-violet-600">
-                    {errors.password?.message}
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••"
+                  autoComplete="new-password"
+                  {...register("password")}
+                  className="block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-3 shadow-sm transition outline-none focus:border-fuchsia-500"
+                />
+                {errors.password?.message && (
+                  <p className="mt-1 text-center text-sm font-semibold text-violet-700">
+                    {errors.password.message}
                   </p>
-                </div>
+                )}
               </div>
+
+              {/* Confirmar Password */}
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block font-medium text-purple-700"
+                  className="mb-1 block pl-1 text-sm font-medium text-purple-700"
                 >
-                  Confirma Password
+                  Confirmar contraseña
                 </label>
-                <div className="mt-1">
-                  <input
-                    type="password"
-                    placeholder="Confirmar Contraseña"
-                    {...register("confirmPassword")}
-                    className="mt-1 block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-2 shadow-sm focus:border-fuchsia-500 focus:outline-none"
-                  />
-                  <p className="flex justify-center text-sm font-bold text-violet-600">
-                    {errors.confirmPassword?.message}
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="••••••"
+                  autoComplete="new-password"
+                  {...register("confirmPassword")}
+                  className="block w-full rounded-xl border border-fuchsia-300 bg-fuchsia-100 p-3 shadow-sm transition outline-none focus:border-fuchsia-500"
+                />
+                {errors.confirmPassword?.message && (
+                  <p className="mt-1 text-center text-sm font-semibold text-violet-700">
+                    {errors.confirmPassword.message}
                   </p>
-                </div>
+                )}
               </div>
-            </div>
-            {errorMessage && (
-              <p className="flex justify-center text-sm font-bold text-red-600">
-                {errorMessage}
+
+              {/* Error general */}
+              {errorMessage && (
+                <p className="text-center text-sm font-bold text-red-600">
+                  {errorMessage}
+                </p>
+              )}
+
+              {/* Botón */}
+              <button
+                type="submit"
+                className="w-full rounded-3xl bg-fuchsia-600 px-4 py-3 font-medium text-white transition hover:bg-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 focus:outline-none"
+              >
+                Registrarse
+              </button>
+
+              {/* Link a login (mobile) */}
+              <p className="mt-2 text-center md:hidden">
+                <Link
+                  to="/login"
+                  className="text-purple-900 underline-offset-4 hover:font-semibold hover:text-purple-600 hover:underline"
+                >
+                  ¿Ya tienes una cuenta?
+                </Link>
               </p>
-            )}
+            </form>
           </div>
-          <div>
-            <button
-              type="submit"
-              className="w-full rounded-3xl border border-transparent bg-fuchsia-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-fuchsia-400 focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 focus:outline-none"
-            >
-              Registrarse
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </main>
   );
